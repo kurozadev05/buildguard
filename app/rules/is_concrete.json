@@ -1,0 +1,90 @@
+{
+  "version": "prototype-1",
+  "disclaimer": "Values were transcribed for a prototype. Verify every threshold against the current edition of the cited IS code and the project specification before field use. Project specification governs. This is decision support, not a substitute for laboratory testing or engineering judgement.",
+
+  "assumed_sd_mpa": {
+    "M10": 3.5, "M15": 3.5, "M20": 4.0, "M25": 4.0,
+    "M30": 5.0, "M35": 5.0, "M40": 5.0, "M45": 5.0, "M50": 5.0
+  },
+
+  "exposure": {
+    "mild":        {"rcc": {"min_grade": "M20", "max_wc": 0.55, "min_cement_kg_m3": 300}, "pcc": {"min_grade": null,  "max_wc": 0.60, "min_cement_kg_m3": 220}, "nominal_cover_mm": 20, "crack_limit_mm": 0.3},
+    "moderate":    {"rcc": {"min_grade": "M25", "max_wc": 0.50, "min_cement_kg_m3": 300}, "pcc": {"min_grade": "M15", "max_wc": 0.60, "min_cement_kg_m3": 240}, "nominal_cover_mm": 30, "crack_limit_mm": 0.2},
+    "severe":      {"rcc": {"min_grade": "M30", "max_wc": 0.45, "min_cement_kg_m3": 320}, "pcc": {"min_grade": "M20", "max_wc": 0.50, "min_cement_kg_m3": 250}, "nominal_cover_mm": 45, "crack_limit_mm": 0.1},
+    "very_severe": {"rcc": {"min_grade": "M35", "max_wc": 0.45, "min_cement_kg_m3": 340}, "pcc": {"min_grade": "M20", "max_wc": 0.45, "min_cement_kg_m3": 260}, "nominal_cover_mm": 50, "crack_limit_mm": 0.1},
+    "extreme":     {"rcc": {"min_grade": "M40", "max_wc": 0.40, "min_cement_kg_m3": 360}, "pcc": {"min_grade": "M25", "max_wc": 0.40, "min_cement_kg_m3": 280}, "nominal_cover_mm": 75, "crack_limit_mm": 0.1}
+  },
+
+  "sampling_frequency": {
+    "steps": [
+      {"upto_m3": 5, "samples": 1},
+      {"upto_m3": 15, "samples": 2},
+      {"upto_m3": 30, "samples": 3},
+      {"upto_m3": 50, "samples": 4}
+    ],
+    "beyond": {"base_samples": 4, "per_extra_m3": 50}
+  },
+
+  "cube": {
+    "specimens_per_sample": 3,
+    "max_specimen_deviation": 0.15,
+    "group_size": 4,
+    "group_sd_factor": 0.825,
+    "early_age_min_fraction": {"3": 0.40, "7": 0.65},
+    "individual_margin_mpa": {"le_M15": 3, "ge_M20": 4},
+    "group_margin_mpa": {"le_M15": 3, "ge_M20": 4}
+  },
+
+  "slump": {
+    "tolerance_mm": 25,
+    "default_condition": "lightly_reinforced",
+    "ranges": {
+      "blinding_shallow_pavement": [25, 75],
+      "lightly_reinforced": [50, 100],
+      "heavily_reinforced": [100, 150],
+      "tremie": [100, 150],
+      "pumped_slipform_trench_piling": [150, 200]
+    }
+  },
+
+  "fresh_temperature_c": {"min": 5, "max": 40, "review_band": 3},
+
+  "core": {"mean_min_fraction": 0.85, "individual_min_fraction": 0.75, "min_cores": 3},
+
+  "upv_km_s": {"good_min": 3.5, "medium_min": 3.0},
+
+  "rebound": {"verified_fraction": 1.0, "review_fraction": 0.85},
+
+  "curing_min_days": {"opc": 7, "blended": 10, "hot_dry_or_mineral_admixture": 10},
+
+  "knowledge": [
+    {"id": "K1", "reference": "IS 456:2000 Cl. 15.2 & Table 12", "title": "Sampling frequency", "tags": ["sampling", "frequency", "cube", "quantity"],
+     "text": "Concrete is sampled in proportion to quantity placed: 1 sample for 1-5 m3, 2 for 6-15 m3, 3 for 16-30 m3, 4 for 31-50 m3, and above 50 m3 four samples plus one additional sample for each additional 50 m3 or part thereof. At least one sample per day per grade."},
+    {"id": "K2", "reference": "IS 456:2000 Cl. 15.4", "title": "Test result of a sample", "tags": ["cube", "specimen", "average", "variation"],
+     "text": "A sample consists of three specimens. The test result of the sample is the average of the three. If an individual specimen varies from the average by more than 15 percent, the result of the sample is invalid."},
+    {"id": "K3", "reference": "IS 456:2000 Cl. 16.1 & Table 11", "title": "Acceptance criteria for compressive strength", "tags": ["acceptance", "strength", "group", "28 day", "compressive"],
+     "text": "Mean of a group of four non-overlapping consecutive test results must be at least fck + 0.825 x established standard deviation (rounded to nearest 0.5 N/mm2) or fck + 3 (M15 and below) / fck + 4 (M20 and above) N/mm2, whichever is greater. Any individual test result must be at least fck - 3 (M15 and below) / fck - 4 (M20 and above) N/mm2."},
+    {"id": "K4", "reference": "IS 456:2000 Table 8", "title": "Assumed standard deviation", "tags": ["standard deviation", "mix design", "sd"],
+     "text": "Assumed standard deviation for mix proportioning: 3.5 N/mm2 for M10-M15, 4.0 for M20-M25, and 5.0 for M30 and above, when no established site data exists."},
+    {"id": "K5", "reference": "IS 456:2000 Table 5", "title": "Exposure conditions and limits", "tags": ["exposure", "durability", "water cement ratio", "cement content", "grade"],
+     "text": "For reinforced concrete the minimum grade, minimum cement content and maximum free water-cement ratio depend on exposure: mild M20/300/0.55, moderate M25/300/0.50, severe M30/320/0.45, very severe M35/340/0.45, extreme M40/360/0.40 (grade / kg per m3 / w-c)."},
+    {"id": "K6", "reference": "IS 456:2000 Cl. 7.1", "title": "Workability", "tags": ["slump", "workability", "placing", "pumped"],
+     "text": "Recommended slump depends on placing condition: 25-75 mm for blinding, shallow sections and pavements using pavers; 50-100 mm for lightly reinforced sections in slabs, beams, walls, columns; 100-150 mm for heavily reinforced sections and tremie; 150-200 mm for slip-form, pumped concrete, trench fill and in-situ piling."},
+    {"id": "K7", "reference": "IS 456:2000 Cl. 13.5", "title": "Curing", "tags": ["curing", "moisture", "days"],
+     "text": "Exposed surfaces should be kept moist for at least 7 days with ordinary Portland cement, and at least 10 days where mineral admixtures or blended cements are used or the weather is hot and dry."},
+    {"id": "K8", "reference": "IS 456:2000 Cl. 17.4", "title": "Core test on doubtful concrete", "tags": ["core", "doubtful", "low strength", "investigation"],
+     "text": "If cube results fail the acceptance criteria, cores may be taken. Concrete in the member is considered acceptable if the average equivalent cube strength of the cores is at least 85 percent of the specified grade and no individual core is less than 75 percent."},
+    {"id": "K9", "reference": "IS 456:2000 Cl. 26.4 & Table 16", "title": "Nominal cover", "tags": ["cover", "reinforcement", "exposure", "durability"],
+     "text": "Nominal cover to meet durability requirements for reinforced members: 20 mm mild, 30 mm moderate, 45 mm severe, 50 mm very severe, 75 mm extreme. Footings need at least 50 mm."},
+    {"id": "K10", "reference": "IS 456:2000 Cl. 35.3.2", "title": "Crack width limits", "tags": ["crack", "serviceability", "durability"],
+     "text": "Surface crack width should generally not exceed 0.3 mm; 0.2 mm where exposed to weather, moisture or soil; and 0.1 mm in particularly aggressive (severe) environments."},
+    {"id": "K11", "reference": "IS 13311 (Part 1)", "title": "Ultrasonic pulse velocity", "tags": ["upv", "ultrasonic", "ndt", "quality"],
+     "text": "Concrete quality by pulse velocity: above 4.5 km/s excellent, 3.5-4.5 good, 3.0-3.5 medium (doubtful), below 3.0 doubtful/poor. Results are indicative and depend on moisture, reinforcement and path length."},
+    {"id": "K12", "reference": "IS 13311 (Part 2)", "title": "Rebound hammer", "tags": ["rebound", "hammer", "ndt", "surface hardness"],
+     "text": "Rebound number gives an indication of surface hardness and needs a calibration curve for strength estimate. Use as a screening tool and for comparing locations, not as a replacement for cube or core tests."},
+    {"id": "K13", "reference": "IS 516 (Part 1/Sec 1)", "title": "Cube testing", "tags": ["cube", "testing", "curing", "150 mm"],
+     "text": "150 mm cubes are cast in moulds, cured in water at 27 +/- 2 degC, and tested for compressive strength at the specified age (commonly 7 and 28 days)."},
+    {"id": "K14", "reference": "IS 7861 (Part 1 & 2)", "title": "Hot and cold weather concreting", "tags": ["temperature", "hot weather", "cold weather", "placing"],
+     "text": "In hot weather the temperature of concrete at placing should be controlled (commonly not above about 40 degC) and in cold weather not below about 5 degC. Follow the project specification."}
+  ]
+}
