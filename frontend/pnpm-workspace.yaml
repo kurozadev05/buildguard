@@ -1,0 +1,7 @@
+# pnpm settings. 'allowBuilds' is read by pnpm 11+, 'ignoredBuiltDependencies' by pnpm 10.
+overrides:
+  postcss: '>=8.5.23'      # patched postcss for the build toolchain (security advisories in the copy bundled with Next)
+allowBuilds:
+  unrs-resolver: false     # optional native helper of the ESLint import resolver; prebuilt binaries ship separately
+ignoredBuiltDependencies:
+  - unrs-resolver
