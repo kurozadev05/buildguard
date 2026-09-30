@@ -1,0 +1,34 @@
+# Local infrastructure ONLY: PostgreSQL 16 + Redis 7. The app itself (backend + frontend) runs on your machine with `npm run dev`.
+# Usage:  npm run db:up   (=  docker compose --env-file .env.local up -d --wait)      npm run db:down   stops them (data is kept)
+# No passwords live in this file: they come from .env.local, which `npm run bootstrap` generates. Ports are bound to 127.0.0.1 only.
+name: buildguard
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-buildguard}
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Run npm run bootstrap first - it creates .env.local with a generated password}"
+      POSTGRES_DB: ${POSTGRES_DB:-buildguard}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data          # persistent: survives `db:down`; removed only by `docker compose down -v`
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "", "--appendonly", "no"]   # cache/rate-limit data only: safe to lose
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+volumes:
+  pgdata:

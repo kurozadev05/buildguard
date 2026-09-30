@@ -1,0 +1,22 @@
+{
+  "name": "buildguard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BUILDGUARD: construction material testing, traceability and durability platform (runs 100% locally).",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "bootstrap": "node scripts/tasks.mjs bootstrap",
+    "check": "node scripts/tasks.mjs check",
+    "dev": "node scripts/tasks.mjs dev",
+    "start": "node scripts/tasks.mjs start",
+    "db:up": "docker compose --env-file .env.local up -d --wait",
+    "db:down": "docker compose --env-file .env.local down",
+    "db:status": "node scripts/tasks.mjs db status",
+    "db:create": "node scripts/tasks.mjs db create",
+    "db:migrate": "node scripts/tasks.mjs db migrate",
+    "db:seed": "node scripts/tasks.mjs db seed",
+    "db:reset": "node scripts/tasks.mjs db reset",
+    "test": "node scripts/tasks.mjs test",
+    "verify": "node scripts/tasks.mjs verify"
+  }
+}
